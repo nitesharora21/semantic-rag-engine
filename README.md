@@ -1,4 +1,4 @@
-# A semantic RAG Engine
+# A semantic RAG Engine for technical documents
 
 Building a RAG based system that will retrieve the most relevant
 document chunks from a knowledge base and uses those chunks
@@ -95,4 +95,12 @@ semantic-rag-engine/
   tests/                # Tests - important, well when are they not important?
 ```
 
+## Tech Stack Used
 
+- Languages: Python
+- Packaging: pyproject.toml
+- Testing: pytest
+- Formatting and Linting: ruff
+- Embeddings: sentence-formatters
+- Vector Search: FAISS
+- API: FastAPI
