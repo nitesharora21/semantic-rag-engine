@@ -15,6 +15,44 @@ The goal here is to develop the project in 3 main phases:
 2. Evaluation: TBA
 3. Production Features: TBA
 
+## Planned System Architecture
+```
+        User Question
+            |
+            v
+
+        Query Processing
+            |
+            |
+            v
+        
+        Embedding Model
+            |
+            |
+            v
+        
+        Vector Search
+            |
+            |
+            v
+        
+        Top-k Retreived Chunks
+            |
+            |
+            v
+        
+        Prompt Construction
+            |
+            |
+            v
+        
+        LLM Answer Generation
+            |
+            |
+            v
+        
+        Grounded Answers + Sources
+```
 
 ## Planned Milestone (Will add more as we go)
 
