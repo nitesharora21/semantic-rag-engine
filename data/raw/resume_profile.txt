@@ -1,0 +1,143 @@
+# Resume Profile Knowledge Base
+
+## Professional Summary
+
+Nitesh Arora is a senior software engineer focused on developer platforms, CI/CD infrastructure, distributed systems, and internal engineering tools.
+
+He has more than eight years of experience designing and operating large-scale engineering platforms. His work has focused on build and release infrastructure, developer productivity, platform reliability, event-driven systems, and automation for complex software organizations.
+
+He has worked on infrastructure supporting Cisco IOS-XE, Cisco's flagship network operating system. This platform supports thousands of engineers and handles a high volume of daily commits across a large and complex codebase.
+
+## Current Role
+
+Nitesh works as a Senior Software Engineer at Cisco Systems.
+
+His responsibilities include platform engineering for internal CI/CD systems that support build, test, and release workflows. The platform uses a Python and Django-based service stack, Kafka-based messaging, MySQL storage, and REST APIs across service boundaries.
+
+## Platform Architecture Experience
+
+Nitesh has worked on large-scale build orchestration systems. He re-architected build orchestration by separating job scheduling from compute resource management, allowing the system to scale services more independently.
+
+He has experience with priority-aware queueing, host-aware allocation, and managing compute resources across a large bare-metal build fleet.
+
+He has also built event-driven services using Apache Kafka. These services support build telemetry, policy snapshots, downstream analytics, and more reliable service-to-service communication.
+
+## Migration and Modernization Experience
+
+Nitesh has led and contributed to multi-quarter platform migrations with minimal user disruption.
+
+Examples include:
+
+* Migrating from a legacy proprietary source control system to Git
+* Supporting multi-site mirror infrastructure across multiple geographic regions
+* Migrating a platform from Python 2 to Python 3
+* Moving from batch-based resource scheduling to on-demand queued build scheduling
+
+These projects required careful planning, compatibility management, rollout strategy, and coordination across teams.
+
+## Developer Experience and Automation
+
+Nitesh has built developer-facing tools used by thousands of engineers.
+
+He built and owns a command-line interface that became the primary way engineers submit, query, cancel, and inspect builds. This replaced fragmented scripts with a unified developer workflow.
+
+He also built an auto-retry framework for build orchestration. This improved the system from a single-shot launcher into a more self-healing platform with retry policies, inconsistent-result detection, and targeted notifications.
+
+He built a pre-commit compliance gate that validates ticket linkage and documentation quality before code merges into the main branch.
+
+## Reliability, Security, and Cost Optimization
+
+Nitesh has worked on reliability, observability, security, and infrastructure cost reduction.
+
+He led a compression migration from gzip to zstd for build logs and artifacts. The migration included zero-downtime rollout and fallback compatibility.
+
+He built observability capabilities including service heartbeats, Ansible-driven playbooks, access-log analytics, API latency tracking, and load testing infrastructure.
+
+He investigated and resolved production reliability issues, including a fleet-wide out-of-memory problem caused by subprocess pipe deadlocks.
+
+He also delivered a code-signing pipeline for virtualized network operating system images and integrated centralized secrets management using Conjur.
+
+## Previous Experience
+
+Before Cisco, Nitesh worked as a Software Developer Intern at Ericsson.
+
+At Ericsson, he built data parsing and analysis pipelines for license management test reporting. He reduced reporting turnaround time from several days of manual work to under ten seconds.
+
+He also built asynchronous ETL pipelines for multi-system test results and worked with globally distributed engineering teams.
+
+His responsibilities included server deployments, Apache configuration, Nagios monitoring, and Jenkins CI integration.
+
+## Technical Skills
+
+Nitesh has experience with the following technologies:
+
+* Python
+* Django
+* Django REST Framework
+* Bash
+* SQL
+* Apache Kafka
+* Celery
+* REST APIs
+* Multi-threaded Python
+* Jenkins
+* JFrog Artifactory
+* Git
+* GitHub Actions
+* Ansible
+* MySQL
+* PostgreSQL
+* Elasticsearch
+* Linux
+* Apache mod_wsgi
+* Conjur
+* LDAP
+* Nagios
+* GoAccess
+* Locust
+
+## Education
+
+Nitesh earned a Master of Science in Computer Science from Georgia Institute of Technology.
+
+He earned a Bachelor of Engineering in Computer Engineering from Concordia University in Montréal.
+
+## Patents and Recognition
+
+Nitesh is a USPTO patent holder for an ML-based defect detection system for large-scale network device fleets.
+
+He was a semi-finalist in Cisco's Innovate Everywhere Challenge for an AI-driven compute scheduler that targeted significant efficiency gains.
+
+He also won first place in the Ericsson North America IoT Showcase.
+
+## Engineering Strengths
+
+Nitesh's strengths include:
+
+* Platform engineering
+* CI/CD infrastructure
+* Developer productivity
+* Distributed systems
+* Event-driven architecture
+* Build orchestration
+* System reliability
+* Automation
+* Technical leadership
+* Migration planning
+* Operational debugging
+* Infrastructure modernization
+
+## Example Questions This Knowledge Base Should Answer
+
+The RAG system should eventually be able to answer questions such as:
+
+* What kind of engineering work has Nitesh done?
+* What systems has Nitesh built at Cisco?
+* What experience does Nitesh have with CI/CD infrastructure?
+* How has Nitesh improved developer productivity?
+* What distributed systems experience does Nitesh have?
+* What reliability work has Nitesh done?
+* What technologies has Nitesh used?
+* What is Nitesh's education background?
+* What patents or awards does Nitesh have?
+
