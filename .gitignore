@@ -1,4 +1,12 @@
 .mailmap
 tests/__pycache__
 *pyc
-*pdf
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.egg-info/
+build/
+dist/
+*.pdf
