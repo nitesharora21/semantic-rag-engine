@@ -1,5 +1,7 @@
 # A semantic RAG Engine for technical documents
 
+[![Run tests](https://github.com/nitesharora21/semantic-rag-engine/actions/workflows/tests.yml/badge.svg)](https://github.com/nitesharora21/semantic-rag-engine/actions/workflows/tests.yml)
+
 Building a RAG based system that will retrieve the most relevant
 document chunks from a knowledge base and uses those chunks
 as grounded context to generate an answer with supporting sources. 
