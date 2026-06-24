@@ -1,3 +1,4 @@
 .mailmap
 tests/__pycache__
 *pyc
+*pdf
