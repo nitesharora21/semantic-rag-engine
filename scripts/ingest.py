@@ -1,15 +1,20 @@
 from rag_engine.chunking import chunk_text
 from rag_engine.loaders import load_text_file
+from rag_engine.storage import save_chunks
 
 CHUNK_SIZE = 300
 
+
 def main() -> None:
-    text = load_text_file(f"../data/raw/resume_profile.txt")
+    text = load_text_file("data/raw/resume_profile.txt")
     chunks = chunk_text(text, chunk_size=CHUNK_SIZE)
 
-    for index, chunk in enumerate(chunks, start=1):
-        print(f"\n--- Chunk {index} ---")
-        print(chunk)
+    save_chunks(chunks, "data/processed/chunks.json")
+
+    # for index, chunk in enumerate(chunks, start=1):
+    #     print(f"\n--- Chunk {index} ---")
+    #     print(chunk)
+
 
 if __name__ == "__main__":
     main()

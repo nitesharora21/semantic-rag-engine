@@ -1,17 +1,37 @@
-def retreive_chunks(query: str, chunks: list[str]) -> list[str]:
+def score_chunk(query: str, chunk: str) -> int:
+    """
+    Calculate the number of words from the query in the chunk.
+    We need that to know how much score to give to the query - higher if more
+    words match in the chunk.
+    """
+    score = 0
+    chunk_lower = chunk.lower()
+    query_lower = query.lower()
+
+    if isinstance(query_lower, str):
+        query_lower = [query_lower]
+
+    for query_word in query_lower:
+        if query_word in chunk_lower:
+            score += chunk_lower.count(query_word)
+
+    return score
+
+
+def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[str]:
     """
     So this is the most basic version of retreival, which is
     if the word if found in the chunk - return that chunk.
-
-    Keeping it super simple for now.
+    Ok now adding the scoring method - score how much of a query
+    is against a chunk - then rank the highest scoring chunks. Then
+    return the chunks and the score with it as well.
     """
-    query_words = query.lower().split()
-    results = []
-
+    scored_chunks = []
     for chunk in chunks:
-        chunk_lower = chunk.lower()
-        for word in query_words:
-            if word in chunk_lower:
-                results.append(chunk)
-                break
-    return results
+        score = score_chunk(query, chunk)
+        if score > 0:
+            # Putting score first cause the sorted will use the score to sort instead of chunk
+            scored_chunks.append((score, chunk))
+    # Need to sort by highest score first
+    scored_chunks.sort(reverse=True)
+    return [(score, chunk) for score, chunk in scored_chunks[:top_k]]
