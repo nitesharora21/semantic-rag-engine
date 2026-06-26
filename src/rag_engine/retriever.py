@@ -1,3 +1,14 @@
+import re
+
+def tokenize(text: str) -> list[str]:
+    """
+    Identifies words within the \b boundary, which is a good idea to
+    get the words.
+    Without tokenizing the text, substrings as small as a single character will
+    be included in the scoring and that is not correct.
+    """
+    return re.findall(r"\b\w+\b", text.lower())
+
 def score_chunk(query: str, chunk: str) -> int:
     """
     Calculate the number of words from the query in the chunk.
@@ -5,8 +16,8 @@ def score_chunk(query: str, chunk: str) -> int:
     words match in the chunk.
     """
     score = 0
-    chunk_lower = chunk.lower()
-    query_lower = query.lower()
+    chunk_lower = tokenize(query)
+    query_lower = tokenize(chunk)
 
     if isinstance(query_lower, str):
         query_lower = [query_lower]
