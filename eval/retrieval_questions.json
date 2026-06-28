@@ -1,0 +1,14 @@
+[
+    {
+        "question": "Does Nitesh know anything about Kafka?",
+        "expected_terms": ["kafka"]
+    },
+    {
+        "question": "What developer tools has Nitesh built so far?",
+        "expected_terms": ["developer", "cli"]
+    },
+    {
+        "question": "What education does Nitesh have?",
+        "expected_terms": ["georgia", "computer science"]
+    }
+]
