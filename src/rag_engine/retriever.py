@@ -45,4 +45,4 @@ def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[str]:
             scored_chunks.append((score, chunk))
     # Need to sort by highest score first
     scored_chunks.sort(reverse=True)
-    return [(score, chunk) for score, chunk in scored_chunks[:top_k]]
+    return scored_chunks[:top_k]

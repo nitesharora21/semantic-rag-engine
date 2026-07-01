@@ -15,7 +15,7 @@ def load_eval_questions(file_path: str) -> list[dict]:
     path = Path(file_path)
     return json.loads(path.read_text(encoding="utf-8"))
 
-def contains_expected_terms(retrieved_chunks: list[tuple[int, str]], expected_terms: list[str]) -> bool:
+def contains_expected_terms(retrieved_chunks: list[str], expected_terms: list[str]) -> bool:
     """
     Takes in the retrieved_chunks based on the question asked.
     Then the expectation is that the chunks will have those expected terms in it.
