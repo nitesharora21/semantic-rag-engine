@@ -1,3 +1,4 @@
+.idea
 .mailmap
 tests/__pycache__
 *pyc
