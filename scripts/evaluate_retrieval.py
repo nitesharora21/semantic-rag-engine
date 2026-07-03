@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from rag_engine.retriever import retrieve_chunks
+from rag_engine.evaluation import contains_expected_terms, calculate_accuracy
 from rag_engine.storage import load_chunks
 
 
@@ -17,48 +18,36 @@ def load_eval_questions(file_path: str) -> list[dict]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def contains_expected_terms(retrieved_chunks: list[str], expected_terms: list[str]) -> bool:
-    """
-    Takes in the retrieved_chunks based on the question asked.
-    Then the expectation is that the chunks will have those expected terms in it.
-    If the chunks dont have those expected_terms, then return False, else return True.
-    """
-    combined_chunks = " ".join(chunk for _, chunk in retrieved_chunks).lower()
-    # All the terms are supposed to be inside the combined_chunks, if even a single is missing return False
-    for term in expected_terms:
-        if term.lower() not in combined_chunks:
-            return False
-    return True
-
-
 def main() -> None:
     chunks = load_chunks("data/processed/chunks.json")
     eval_questions = load_eval_questions("eval/retrieval_questions.json")
 
-    passed = 0
+    results_summary = []
 
     for item in eval_questions:
         question = item["question"]
         expected_terms = item["expected_terms"]
 
-        results = retrieve_chunks(question, chunks, top_k=3)
-        success = contains_expected_terms(results, expected_terms)
-        if success:
-            passed += 1
+        retrieved_chunks = retrieve_chunks(question, chunks, top_k=3)
+        success = contains_expected_terms(retrieved_chunks, expected_terms)
+
+        # Adding success result to result_summary to calculate the accuracy score later
+        results_summary.append(success)
+
         status = "PASSED" if success else "FAILED"
         print(f"\n[{status}] {question}")
         print(f"Expected Terms: {expected_terms}")
 
-        for index, result in enumerate(results, start=1):
+        for index, result in enumerate(retrieved_chunks, start=1):
             score, chunk = result
             print(f"\n Result {index} | Score: {score}")
             print(f"\tTruncated Chunk:\n{chunk}\n")
-    total_questions = len(eval_questions)
-    # Basically how many retrieved chunks per query has the expected terms in it
-    accuracy = passed / total_questions if total_questions else 0
+    passed_results = sum(results_summary)
+    total_results = len(results_summary)
+    accuracy = calculate_accuracy(results_summary)
 
     print("\n--- SUMMARY ---")
-    print(f"Passed : {passed}/{total_questions}")
+    print(f"Passed : {passed_results}/{total_results}")
     print(f"Accuracy: {accuracy:.2f}")
 
 
