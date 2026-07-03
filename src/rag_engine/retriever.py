@@ -1,5 +1,6 @@
 import re
 
+
 def tokenize(text: str) -> list[str]:
     """
     Identifies words within the \b boundary, which is a good idea to
@@ -8,6 +9,7 @@ def tokenize(text: str) -> list[str]:
     be included in the scoring and that is not correct.
     """
     return re.findall(r"\b\w+\b", text.lower())
+
 
 def score_chunk(query: str, chunk: str) -> int:
     """
