@@ -24,11 +24,6 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
-      - name: Verify sentence-transformers is installed
-        run: |
-          uv run python -c "import sys; print(sys.executable)"
-          uv run python _c "import sentence_transformers; print(sentence_transformers.__version__)"
-
       - name: Run tests
         run: |
           uv run pytest
