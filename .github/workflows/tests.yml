@@ -26,7 +26,7 @@ jobs:
 
       - name: Verify sentence-transformers is installed
         run: |
-          uv run python -c "import sys; print(sys.executable)
+          uv run python -c "import sys; print(sys.executable)"
           uv run python -c "import sentence-transformers; print(sentence-transformers.__version__)"
 
       - name: Run tests
