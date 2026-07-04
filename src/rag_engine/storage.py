@@ -19,3 +19,22 @@ def load_chunks(input_path: str) -> list[str]:
     path = Path(input_path)
     content = path.read_text(encoding="utf-8")
     return json.loads(content)
+
+
+def save_embeddings(embeddings: list[list[float]], output_path: str) -> None:
+    """
+    Save the embeddings to a JSON file
+    """
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    path.write_text(json.dumps(embeddings), encoding="utf-8")
+
+
+def load_embeddings(input_path: str) -> list[list[float]]:
+    """
+    Load the embeddings using the input_path provided.
+    """
+    path = Path(input_path)
+    content = path.read_text(encoding="utf-8")
+    return json.loads(content)
