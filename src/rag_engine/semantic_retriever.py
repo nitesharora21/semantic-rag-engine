@@ -1,27 +1,26 @@
 import math
 
-def cosine_similarity(
-    vector_a: list[float],
-    vector_b: list[float]
-) -> float:
+
+def cosine_similarity(vector_a: list[float], vector_b: list[float]) -> float:
     """
     Calculate the cosine similarity between two vectors.
     Cosine similarity measures whether the two vectors are in same direction.
     Higher values mean more in the same direction.
     """
     dot_product = 0.0
-    norm_a      = 0.0
-    norm_b      = 0.0
+    norm_a = 0.0
+    norm_b = 0.0
 
     for value_a, value_b in zip(vector_a, vector_b):
         dot_product += value_a * value_b
-        norm_a      += value_a * value_a
-        norm_b      += value_b * value_b
+        norm_a += value_a * value_a
+        norm_b += value_b * value_b
 
     if norm_a == 0.0 or norm_b == 0.0:
         return 0.0
 
     return dot_product / (math.sqrt(norm_a) * math.sqrt(norm_b))
+
 
 def retrieve_semantic_chunks(
     query_embedding: list[float],
