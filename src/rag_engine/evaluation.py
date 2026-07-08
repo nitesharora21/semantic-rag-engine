@@ -1,4 +1,4 @@
-def contains_expected_terms(retrieved_chunks: list[str], expected_terms: list[str]) -> bool:
+def contains_expected_terms(retrieved_chunks: list[tuple[float, str]], expected_terms: list[str]) -> bool:
     """
     Takes in the retrieved_chunks based on the question asked.
     Then the expectation is that the chunks will have those expected terms in it.
