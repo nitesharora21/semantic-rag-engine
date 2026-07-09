@@ -48,7 +48,7 @@ def main()-> None:
   total = len(results_summary)
   accuracy = calculate_accuracy(results_summary)
 
-  print(f"\n--- Summary ---")
+  print("\n--- Summary ---")
   print(f"Passed: {passed}")
   print(f"Total: {total}")
   print(f"Accuracy: {accuracy}")
