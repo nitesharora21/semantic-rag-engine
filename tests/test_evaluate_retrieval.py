@@ -1,5 +1,5 @@
 from scripts.evaluate_retrieval import contains_expected_terms
-from rag_engine.evaluation import calculate_accuracy
+from rag_engine.evaluation import calculate_accuracy, format_accuracy_summary
 
 
 def test_contains_expected_terms() -> None:
@@ -9,7 +9,6 @@ def test_contains_expected_terms() -> None:
     result = contains_expected_terms(
         retrieved_chunks=retrieved_chunks, expected_terms=["Kafka", "event-driven"]
     )
-
     assert result is True
 
 
@@ -37,3 +36,9 @@ def test_calculate_accuracy_returns_fraction_of_passed_results() -> None:
     results = [True, True, True, False]
     accuracy = calculate_accuracy(results)
     assert accuracy == 0.75
+
+
+def test_format_accuracy_summary_returns_display_fields() -> None:
+    summary = format_accuracy_summary(method_name="Keyword", results=[True, False, True])
+
+    assert summary == {"method": "Keyword", "passed": "2", "total": "3", "accuracy": "0.67"}

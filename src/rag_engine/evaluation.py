@@ -1,4 +1,9 @@
-def contains_expected_terms(retrieved_chunks: list[tuple[float, str]], expected_terms: list[str]) -> bool:
+from collections.abc import Sequence
+
+
+def contains_expected_terms(
+    retrieved_chunks: Sequence[tuple[int | float, str]], expected_terms: list[str]
+) -> bool:
     """
     Takes in the retrieved_chunks based on the question asked.
     Then the expectation is that the chunks will have those expected terms in it.
@@ -20,3 +25,17 @@ def calculate_accuracy(results: list[bool]) -> float:
         return 0.0
 
     return sum(results) / len(results)
+
+
+def format_accuracy_summary(
+    method_name: str,
+    results: list[bool],
+) -> dict[str, str]:
+    """
+    Format evaluation results for summary reporting.
+    """
+    passed = str(sum(results))
+    total = str(len(results))
+    accuracy = calculate_accuracy(results=results)
+
+    return {"method": method_name, "passed": passed, "total": total, "accuracy": f"{accuracy:.2f}"}
