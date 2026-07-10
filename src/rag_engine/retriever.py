@@ -1,4 +1,5 @@
 import re
+from rag_engine.evaluation import RetrievalResult
 
 
 def tokenize(text: str) -> list[str]:
@@ -31,7 +32,7 @@ def score_chunk(query: str, chunk: str) -> int:
     return score
 
 
-def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[tuple[int, str]]:
+def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[RetrievalResult]:
     """
     So this is the most basic version of retreival, which is
     if the word if found in the chunk - return that chunk.

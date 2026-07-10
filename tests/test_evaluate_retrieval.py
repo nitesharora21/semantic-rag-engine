@@ -1,5 +1,35 @@
-from scripts.evaluate_retrieval import contains_expected_terms
-from rag_engine.evaluation import calculate_accuracy, format_accuracy_summary
+import json
+
+from rag_engine.evaluation import (
+    calculate_accuracy,
+    contains_expected_terms,
+    load_eval_questions,
+    format_accuracy_summary,
+)
+
+
+def test_load_eval_questions_reads_from_json_file(tmp_path) -> None:
+    eval_path = tmp_path / "retrieval_questions.json"
+    eval_path.write_text(
+        json.dumps(
+            [
+                {
+                    "question": "Tell me what does Nitesh know about Kafka?",
+                    "expected_terms": ["Kafka"],
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    questions = load_eval_questions(str(eval_path))
+
+    assert questions == [
+        {
+            "question": "Tell me what does Nitesh know about Kafka?",
+            "expected_terms": ["Kafka"],
+        }
+    ]
+    return
 
 
 def test_contains_expected_terms() -> None:

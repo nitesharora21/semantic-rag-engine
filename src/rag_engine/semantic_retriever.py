@@ -1,4 +1,5 @@
 import math
+from rag_engine.evaluation import RetrievalResult
 
 
 def cosine_similarity(vector_a: list[float], vector_b: list[float]) -> float:
@@ -27,7 +28,7 @@ def retrieve_semantic_chunks(
     chunks: list[str],
     chunk_embeddings: list[list[float]],
     top_k: int = 3,
-) -> list[tuple[float, str]]:
+) -> list[RetrievalResult]:
     """
     Retrieve chunks ranked by cosine similarity to the query embedding.
 

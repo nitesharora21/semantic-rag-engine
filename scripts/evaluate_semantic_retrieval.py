@@ -1,16 +1,12 @@
-import json
-
-from pathlib import Path
-
 from rag_engine.embeddings import EmbeddingModel
-from rag_engine.evaluation import calculate_accuracy, contains_expected_terms
 from rag_engine.semantic_retriever import retrieve_semantic_chunks
 from rag_engine.storage import load_chunks, load_embeddings
-
-
-def load_eval_questions(file_path: str) -> list[dict]:
-    path = Path(file_path)
-    return json.loads(path.read_text(encoding="utf-8"))
+from rag_engine.evaluation import (
+    calculate_accuracy,
+    evaluate_retriever,
+    load_eval_questions,
+    RetrievalResult,
+)
 
 
 def main() -> None:
@@ -20,41 +16,38 @@ def main() -> None:
 
     model = EmbeddingModel()
 
-    results_summary = []
-
-    for item in eval_questions:
-        question = item["question"]
-        expected_terms = item["expected_terms"]
-
+    def semantic_retrieve(question: str) -> list[RetrievalResult]:
         query_embedding = model.embed_text(question)
-
-        retrieved_chunks = retrieve_semantic_chunks(
+        return retrieve_semantic_chunks(
             query_embedding=query_embedding,
             chunks=chunks,
             chunk_embeddings=chunk_embeddings,
             top_k=3,
         )
 
-        success = contains_expected_terms(retrieved_chunks, expected_terms)
-        results_summary.append(success)
+    results_summary = evaluate_retriever(
+        eval_questions=eval_questions,
+        retrieve_fn=semantic_retrieve,
+    )
 
-        status = "PASS" if success else "FAIL"
-
+    for item, success in zip(eval_questions, results_summary):
+        question = item["question"]
+        expected_terms = item["expected_terms"]
+        retrieved_chunks = semantic_retrieve(str(question))
+        status = "SUCCESS" if success else "FAIL"
         print(f"\n [{status}] {question}")
-        print(f"Expected terms: {expected_terms}")
-
+        print(f"Expected Terms: {expected_terms}")
         for index, result in enumerate(retrieved_chunks, start=1):
             score, chunk = result
-            print(f"--- Result {index} | Similarity: {score:.4f}")
+            print(f"\n Result {index} | Similarity: {score:.4f}")
             print(f"\t{chunk[:300]}")
 
     passed = sum(results_summary)
     total = len(results_summary)
     accuracy = calculate_accuracy(results_summary)
 
-    print("--- Final Summary ---")
-    print(f"Passed: {passed}")
-    print(f"Total {total}")
+    print("\n--- Summary ---")
+    print(f"Passed: {passed / total}")
     print(f"Accuracy: {accuracy:.2f}")
 
 
