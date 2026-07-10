@@ -9,21 +9,24 @@ from rag_engine.evaluation import (
 )
 
 
+chunks = load_chunks("data/processed/chunks.json")
+chunk_embeddings = load_embeddings("data/processed/embeddings.json")
+eval_questions = load_eval_questions("eval/retrieval_questions.json")
+
+model = EmbeddingModel()
+
+
+def semantic_retrieve(question: str) -> list[RetrievalResult]:
+    query_embedding = model.embed_text(question)
+    return retrieve_semantic_chunks(
+        query_embedding=query_embedding,
+        chunks=chunks,
+        chunk_embeddings=chunk_embeddings,
+        top_k=3,
+    )
+
+
 def main() -> None:
-    chunks = load_chunks("data/processed/chunks.json")
-    chunk_embeddings = load_embeddings("data/processed/embeddings.json")
-    eval_questions = load_eval_questions("eval/retrieval_questions.json")
-
-    model = EmbeddingModel()
-
-    def semantic_retrieve(question: str) -> list[RetrievalResult]:
-        query_embedding = model.embed_text(question)
-        return retrieve_semantic_chunks(
-            query_embedding=query_embedding,
-            chunks=chunks,
-            chunk_embeddings=chunk_embeddings,
-            top_k=3,
-        )
 
     results_summary = evaluate_retriever(
         eval_questions=eval_questions,

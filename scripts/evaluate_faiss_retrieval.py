@@ -1,49 +1,44 @@
-import json
-from pathlib import Path
-
 from rag_engine.embeddings import EmbeddingModel
 from rag_engine.storage import load_chunks, load_embeddings
 from rag_engine.vector_store import FaissVectorStore
-from rag_engine.evaluation import calculate_accuracy, contains_expected_terms
+from rag_engine.evaluation import (
+    calculate_accuracy,
+    load_eval_questions,
+    evaluate_retriever,
+    RetrievalResult,
+)
+
+chunks = load_chunks("data/processed/chunks.json")
+embeddings = load_embeddings("data/processed/embeddings.json")
+eval_questions = load_eval_questions("eval/retrieval_questions.json")
+
+model = EmbeddingModel()
+store = FaissVectorStore(embeddings=embeddings)
 
 
-def load_eval_questions(file_path: str) -> list[dict]:
-    path = Path(file_path)
-    return json.loads(path.read_text(encoding="utf-8"))
+def faiss_retrieve(question: str) -> list[RetrievalResult]:
+    query_embedding = model.embed_text(question)
+    retrieved_chunks = store.search(query_embedding=query_embedding, top_k=3)
+    return [(score, chunks[chunk_index]) for score, chunk_index in retrieved_chunks]
 
 
 def main() -> None:
-    chunks = load_chunks("data/processed/chunks.json")
-    embeddings = load_embeddings("data/processed/embeddings.json")
-    eval_questions = load_eval_questions("eval/retrieval_questions.json")
 
-    model = EmbeddingModel()
-    store = FaissVectorStore(embeddings=embeddings)
+    results_summary = evaluate_retriever(eval_questions=eval_questions, retrieve_fn=faiss_retrieve)
 
-    results_summary = []
-
-    for item in eval_questions:
+    for item, success in zip(eval_questions, results_summary):
         question = item["question"]
         expected_terms = item["expected_terms"]
+        retreived_chunks = faiss_retrieve(question=str(question))
 
-        query_embedding = model.embed_text(question)
-        faiss_results = store.search(query_embedding=query_embedding, top_k=3)
-
-        retrieved_chunks = [(score, chunks[chunk_index]) for score, chunk_index in faiss_results]
-
-        success = contains_expected_terms(
-            retrieved_chunks=retrieved_chunks, expected_terms=expected_terms
-        )
-        results_summary.append(success)
-
-        status = "PASS" if success else "FAIL"
-        print(f"[{status}] {question}")
+        status = "PASSED" if success else "FAIL"
+        print(f"\n[{status}] {question}")
         print(f"Expected Terms: {expected_terms}")
 
-        for index, result in enumerate(retrieved_chunks, start=1):
+        for index, result in enumerate(retreived_chunks, start=1):
             score, chunk = result
-            print(f"---\n Result {index} | FAISS Score: {score:.4f}")
-            print(f"\t{chunk[:300]}")
+            print(f"\n Result {index} | FAISS Score: {score}")
+            print(f"\t {chunk[:300]}")
 
     passed = sum(results_summary)
     total = len(results_summary)

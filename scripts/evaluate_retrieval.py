@@ -8,16 +8,19 @@ from rag_engine.evaluation import (
 )
 
 
-def main() -> None:
-    chunks = load_chunks("data/processed/chunks.json")
-    eval_questions = load_eval_questions("eval/retrieval_questions.json")
+chunks = load_chunks("data/processed/chunks.json")
+eval_questions = load_eval_questions("eval/retrieval_questions.json")
 
-    def keyword_retrieve(question: str) -> list[RetrievalResult]:
-        return retrieve_chunks(
-            query=question,
-            chunks=chunks,
-            top_k=3,
-        )
+
+def keyword_retrieve(question: str) -> list[RetrievalResult]:
+    return retrieve_chunks(
+        query=question,
+        chunks=chunks,
+        top_k=3,
+    )
+
+
+def main() -> None:
 
     results_summary = evaluate_retriever(
         eval_questions=eval_questions,
