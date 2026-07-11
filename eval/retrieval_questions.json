@@ -1,14 +1,14 @@
 [
     {
         "question": "Does Nitesh know anything about Kafka?",
-        "expected_terms": ["kafka"]
+        "expected_terms": ["chunk-3"]
     },
     {
         "question": "What developer tools has Nitesh built so far?",
-        "expected_terms": ["developer", "cli"]
+        "expected_terms": ["chunk-2", "chunk-8"]
     },
     {
         "question": "What education does Nitesh have?",
-        "expected_terms": ["georgia", "computer science"]
+        "expected_terms": ["chunk-6", "chunk-12"]
     }
 ]
