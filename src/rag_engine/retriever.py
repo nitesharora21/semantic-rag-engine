@@ -1,4 +1,5 @@
 import re
+from rag_engine.storage import ChunkRecord
 from rag_engine.evaluation import RetrievalResult
 
 
@@ -32,7 +33,7 @@ def score_chunk(query: str, chunk: str) -> int:
     return score
 
 
-def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[RetrievalResult]:
+def retrieve_chunks(query: str, chunks: list[ChunkRecord], top_k: int = 3) -> list[RetrievalResult]:
     """
     So this is the most basic version of retreival, which is
     if the word if found in the chunk - return that chunk.
@@ -42,10 +43,11 @@ def retrieve_chunks(query: str, chunks: list[str], top_k: int = 3) -> list[Retri
     """
     scored_chunks = []
     for chunk in chunks:
-        score = score_chunk(query, chunk)
+        chunk_text = chunk["text"]
+        score = score_chunk(query, chunk_text)
         if score > 0:
             # Putting score first cause the sorted will use the score to sort instead of chunk
-            scored_chunks.append((score, chunk))
+            scored_chunks.append((score, chunk_text))
     # Need to sort by highest score first
     scored_chunks.sort(reverse=True)
     return scored_chunks[:top_k]

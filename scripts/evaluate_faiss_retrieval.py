@@ -19,7 +19,13 @@ store = FaissVectorStore(embeddings=embeddings)
 def faiss_retrieve(question: str) -> list[RetrievalResult]:
     query_embedding = model.embed_text(question)
     retrieved_chunks = store.search(query_embedding=query_embedding, top_k=3)
-    return [(score, chunks[chunk_index]) for score, chunk_index in retrieved_chunks]
+    results = []
+    for score, chunk_index in retrieved_chunks:
+        for chunk_data in chunks:
+            if chunk_data["id"] == f"chunk-{chunk_index}":
+                results.append((score, chunk_data["text"]))
+                break
+    return results
 
 
 def main() -> None:
