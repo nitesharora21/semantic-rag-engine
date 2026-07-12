@@ -1,16 +1,59 @@
 import json
 from pathlib import Path
-from typing import Callable
+from typing import Callable, TypedDict
 
 RetrievalResult = tuple[int | float, str]  # Generally score and chunk
-EvalQuestion = dict[str, list[str]]  # Question and the expected terms (str or list)
 
 
-def load_eval_questions(file_path: str) -> list[EvalQuestion]:
+class EvalQuestion(TypedDict):
+    question: str
+    expected_terms: list[str]
+
+
+def calculate_recall_at_k(
+    retrieved_chunk_ids: list[str], expected_terms: list[str], k: int
+) -> float:
     """
-    Load the evaluation questions with their expected terms and return as a json dict"""
-    path = Path(file_path)
-    return json.loads(path.read_text(encoding="utf-8"))
+    Calculating recall@k for one evaluation question.
+
+    Definition: Recall@k is the fraction of the expected chunks over
+    first k received results
+    """
+    if not expected_terms:
+        return 0
+
+    top_k_ids = retrieved_chunk_ids[:k]
+    relevant_retrieved = set(top_k_ids) & set(expected_terms)
+    return len(relevant_retrieved) / len(expected_terms)
+
+
+def evaluate_recall_at_k(
+    eval_questions: list[EvalQuestion],
+    retrieve_fn: Callable[[str], list[RetrievalResult]],
+    k: int = 3,
+) -> list[float]:
+    """45
+    Calculate recall@k for every eval question now
+    For each question retrieve the top k chunks for the type of retrieval_method provided
+    Then with the retrieved_chunks data - extract the chunk ids from it
+    And then use the retrieved_chunk_ids and expected_terms from the item
+    to compute the recall@k
+    """
+    scores = []
+    for item in eval_questions:
+        retrieved_chunks = retrieve_fn(item["question"])
+        retrieved_chunk_ids = [chunk_id for _, chunk_id in retrieved_chunks]
+        score = calculate_recall_at_k(
+            retrieved_chunk_ids=retrieved_chunk_ids, expected_terms=item["expected_terms"], k=k
+        )
+        scores.append(score)
+    return scores
+
+
+def calculate_mean_score(scores: list[float]) -> float:
+    if not scores:
+        return 0.0
+    return sum(scores) / len(scores)
 
 
 def contains_expected_terms(
@@ -28,16 +71,6 @@ def contains_expected_terms(
         if term.lower() not in combined_chunks:
             return False
     return True
-
-
-def calculate_accuracy(results: list[bool]) -> float:
-    """
-    Calculate the fraction of the evaluation checks that passed.
-    """
-    if not results:
-        return 0.0
-
-    return sum(results) / len(results)
 
 
 def evaluate_retriever(
@@ -63,6 +96,24 @@ def evaluate_retriever(
         )
         results.append(success)
     return results
+
+
+def load_eval_questions(file_path: str) -> list[EvalQuestion]:
+    """
+    Load the evaluation questions with their expected terms and return as a json dict"""
+    path = Path(file_path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return data
+
+
+def calculate_accuracy(results: list[bool]) -> float:
+    """
+    Calculate the fraction of the evaluation checks that passed.
+    """
+    if not results:
+        return 0.0
+
+    return sum(results) / len(results)
 
 
 def format_accuracy_summary(
