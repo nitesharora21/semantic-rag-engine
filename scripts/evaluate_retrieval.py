@@ -1,9 +1,10 @@
 from rag_engine.retriever import retrieve_chunks
 from rag_engine.storage import load_chunks
 from rag_engine.evaluation import (
-    evaluate_retriever,
     load_eval_questions,
     RetrievalResult,
+    evaluate_recall_at_k,
+    calculate_mean_score,
 )
 
 
@@ -20,17 +21,12 @@ def keyword_retrieve(question: str) -> list[RetrievalResult]:
 
 def main() -> None:
 
-    results_summary = evaluate_retriever(
-        eval_questions=eval_questions,
-        retrieve_fn=keyword_retrieve,
-    )
-
     recall_scores = evaluate_recall_at_k(
         eval_questions=eval_questions, retrieve_fn=keyword_retrieve, k=3
     )
     for item, recall in zip(eval_questions, recall_scores):
         print(f"\nQuestion: {item['question']}")
-        print(f"Expected chunks: {item['expected_chunk_ids']}")
+        print(f"Expected chunks: {item['expected_terms']}")
         print(f"Recall@3: {recall:.2f}")
     mean_recall = calculate_mean_score(recall_scores)
     print("\n---Summary ---")

@@ -7,11 +7,11 @@ RetrievalResult = tuple[int | float, str]  # Generally score and chunk
 
 class EvalQuestion(TypedDict):
     question: str
-    expected_chunk_ids: list[str]
+    expected_terms: list[str]
 
 
 def calculate_recall_at_k(
-    retrieved_chunk_ids: list[str], expected_chunk_ids: list[str], k: int
+    retrieved_chunk_ids: list[str], expected_terms: list[str], k: int
 ) -> float:
     """
     Calculating recall@k for one evaluation question.
@@ -19,22 +19,24 @@ def calculate_recall_at_k(
     Definition: Recall@k is the fraction of the expected chunks over
     first k received results
     """
-    if not expected_chunk_ids:
+    if not expected_terms:
         return 0
 
     top_k_ids = retrieved_chunk_ids[:k]
-    relevant_retrieved = set(top_k_ids) & set(expected_chunk_ids)
-    return len(relevant_retrieved) / len(expected_chunk_ids)
+    relevant_retrieved = set(top_k_ids) & set(expected_terms)
+    return len(relevant_retrieved) / len(expected_terms)
 
 
 def evaluate_recall_at_k(
-    eval_questions: list[EvalQuestion], retrieve_fn: Callable[[str], list[RetrievalResult]], k: int = 3
+    eval_questions: list[EvalQuestion],
+    retrieve_fn: Callable[[str], list[RetrievalResult]],
+    k: int = 3,
 ) -> list[float]:
-    """
+    """45
     Calculate recall@k for every eval question now
     For each question retrieve the top k chunks for the type of retrieval_method provided
     Then with the retrieved_chunks data - extract the chunk ids from it
-    And then use the retrieved_chunk_ids and expected_chunk_ids from the item
+    And then use the retrieved_chunk_ids and expected_terms from the item
     to compute the recall@k
     """
     scores = []
@@ -42,7 +44,7 @@ def evaluate_recall_at_k(
         retrieved_chunks = retrieve_fn(item["question"])
         retrieved_chunk_ids = [chunk_id for _, chunk_id in retrieved_chunks]
         score = calculate_recall_at_k(
-            retrieved_chunk_ids=retrieve_chunk_ids, expected_chunk_ids=item["expected_terms"], k=k
+            retrieved_chunk_ids=retrieved_chunk_ids, expected_terms=item["expected_terms"], k=k
         )
         scores.append(score)
     return scores
@@ -101,6 +103,7 @@ def load_eval_questions(file_path: str) -> list[EvalQuestion]:
     Load the evaluation questions with their expected terms and return as a json dict"""
     path = Path(file_path)
     data = json.loads(path.read_text(encoding="utf-8"))
+    return data
 
 
 def calculate_accuracy(results: list[bool]) -> float:

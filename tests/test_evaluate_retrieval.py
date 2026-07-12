@@ -5,57 +5,53 @@ from rag_engine.evaluation import (
     contains_expected_terms,
     load_eval_questions,
     format_accuracy_summary,
-    calculate_mean_score,
     calculate_recall_at_k,
-    evaluate_recall_at_k
+    evaluate_recall_at_k,
 )
+
 
 def test_calculate_recall_at_k_returns_one_when_all_relevant_chunks_are_found() -> None:
     score = calculate_recall_at_k(
         retrieved_chunk_ids=["chunk-4", "chunk-2", "chunk-3"],
-        expected_chunk_ids=["chunk-2", "chunk-3"],
-        k=3
+        expected_terms=["chunk-2", "chunk-3"],
+        k=3,
     )
     assert score == 1.0
 
+
 def test_calculate_recall_at_k_returns_partial_score() -> None:
     score = calculate_recall_at_k(
-        retrieved_chunk_ids=["chunk-4", "chunk-2", "chunk-8"]
-        expected_chunk_ids=["chunk-2", "chunk-3"]
+        retrieved_chunk_ids=["chunk-4", "chunk-2", "chunk-8"],
+        expected_terms=["chunk-2", "chunk-3"],
+        k=2,
     )
     assert score == 0.5
+
 
 def test_calculate_recall_at_k_respects_k() -> None:
     score = calculate_recall_at_k(
         retrieved_chunk_ids=["chunk-4", "chunk-2", "chunk-3"],
-        expected_chunk_ids=["chunk-2", "chunk-3"]
-        k=2
+        expected_terms=["chunk-2", "chunk-3"],
+        k=2,
     )
     # We only look at the first k chunks in the retrieved_chunks_ids,
     # so here we ignore chunk-3 in retrieved_chunk_ids
     assert score == 0.5
 
+
 def test_evaluate_recall_at_k_returns_score_for_each_question() -> None:
     eval_questions = [
-        {
-            "question": "What has Nitesh done in Kafka?"
-            "expected_chunk_ids": ['chunk-5']
-        },
-        {
-            "question": "What is Nitesh's recent education?"
-            "expected_chunk_ids": ["chunk-10"]
-        },
+        {"question": "What has Nitesh done in Kafka?", "expected_terms": ["chunk-5"]},
+        {"question": "What is Nitesh's recent education?", "expected_terms": ["chunk-10"]},
     ]
+
     def fake_retrieve(question: str) -> list[tuple[float, str]]:
         if "Kafka" in question:
             return [(0.9, "chunk-5")]
         else:
             return [(0.7, "chunk-10")]
 
-    scores = evaluate_recall_at_k(
-        eval_questions=eval_questions,
-        retrieve_fn=fake_retrieve,
-        k=3)
+    scores = evaluate_recall_at_k(eval_questions=eval_questions, retrieve_fn=fake_retrieve, k=3)
     assert scores == [1.0, 1.0]
 
 
