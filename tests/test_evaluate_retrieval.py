@@ -7,7 +7,32 @@ from rag_engine.evaluation import (
     format_accuracy_summary,
     calculate_recall_at_k,
     evaluate_recall_at_k,
+    evaluate_reciprocal_rank,
+    EvalQuestion,
+    RetrievalResult,
 )
+
+
+def test_evaluate_reciprocal_rank_returns_score_for_each_question() -> None:
+    eval_questions: list[EvalQuestion] = [
+        {
+            "question": "What Kafka work was done?",
+            "expected_terms": ["chunk-2"],
+        },
+        {
+            "question": "What education is listed?",
+            "expected_terms": ["chunk-7"],
+        },
+    ]
+
+    def fake_retrieve(question: str) -> list[tuple[float, str]]:
+        if "Kafka" in question:
+            return [(0.9, "chunk-2"), (0.3, "chunk-4")]
+        else:
+            return [(0.3, "chunk-3"), (0.1, "chunk-7")]
+
+    scores = evaluate_reciprocal_rank(eval_questions=eval_questions, retrieve_fn=fake_retrieve)
+    assert scores == [1.0, 0.5]
 
 
 def test_calculate_recall_at_k_returns_one_when_all_relevant_chunks_are_found() -> None:
@@ -40,7 +65,7 @@ def test_calculate_recall_at_k_respects_k() -> None:
 
 
 def test_evaluate_recall_at_k_returns_score_for_each_question() -> None:
-    eval_questions = [
+    eval_questions: list[EvalQuestion] = [
         {"question": "What has Nitesh done in Kafka?", "expected_terms": ["chunk-5"]},
         {"question": "What is Nitesh's recent education?", "expected_terms": ["chunk-10"]},
     ]
@@ -80,7 +105,7 @@ def test_load_eval_questions_reads_from_json_file(tmp_path) -> None:
 
 
 def test_contains_expected_terms() -> None:
-    retrieved_chunks = [
+    retrieved_chunks: list[RetrievalResult] = [
         (2, "Nitesh built Kafka-based event-driven services."),
     ]
     result = contains_expected_terms(
@@ -90,7 +115,9 @@ def test_contains_expected_terms() -> None:
 
 
 def test_contains_expected_terms_returns_true_when_all_terms_exist() -> None:
-    retrieved_chunks = [(2, "Nitesh built Kafka-based event-driven services.")]
+    retrieved_chunks: list[RetrievalResult] = [
+        (2, "Nitesh built Kafka-based event-driven services.")
+    ]
 
     result = contains_expected_terms(
         retrieved_chunks=retrieved_chunks, expected_terms=["Kafka", "event-driven"]
@@ -99,7 +126,7 @@ def test_contains_expected_terms_returns_true_when_all_terms_exist() -> None:
 
 
 def test_contains_expected_terms_returns_true_when_terms_are_missing() -> None:
-    retrieved_chunks = [(1, "Nitesh built developer tooling")]
+    retrieved_chunks: list[RetrievalResult] = [(1, "Nitesh built developer tooling")]
     result = contains_expected_terms(retrieved_chunks=retrieved_chunks, expected_terms=["Kafka"])
     assert result is False
 
