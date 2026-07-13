@@ -18,42 +18,33 @@ The goal here is to develop the project in 3 main phases:
 3. Production Features: TBA
 
 ## Planned System Architecture
+### Updated Workflow: 2026-07-13
 ```
-        User Question
-            |
-            v
+Source document
+    ↓
+Chunking
+    ↓
+chunks.json
+    ↓
+Embedding generation
+    ↓
+embeddings.json
+    ↓
+FAISS index construction
+    ↓
+faiss.index
 
-        Query Processing
-            |
-            |
-            v
-        
-        Embedding Model
-            |
-            |
-            v
-        
-        Vector Search
-            |
-            |
-            v
-        
-        Top-k Retreived Chunks
-            |
-            |
-            v
-        
-        Prompt Construction
-            |
-            |
-            v
-        
-        LLM Answer Generation
-            |
-            |
-            v
-        
-        Grounded Answers + Sources
+The query workflow becomes:
+
+User query
+    ↓
+Query embedding
+    ↓
+Load faiss.index
+    ↓
+Vector search
+    ↓
+Retrieved chunks
 ```
 
 ## Planned Milestone (Will add more as we go)
