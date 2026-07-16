@@ -1,5 +1,5 @@
 import re
-from rag_engine.storage import ChunkRecord
+from rag_engine.storage import Chunk
 from rag_engine.evaluation import RetrievalResult
 
 
@@ -33,7 +33,7 @@ def score_chunk(query: str, chunk: str) -> int:
     return score
 
 
-def retrieve_chunks(query: str, chunks: list[ChunkRecord], top_k: int = 3) -> list[RetrievalResult]:
+def retrieve_chunks(query: str, chunks: list[Chunk], top_k: int = 3) -> list[RetrievalResult]:
     """
     So this is the most basic version of retreival, which is
     if the word if found in the chunk - return that chunk.

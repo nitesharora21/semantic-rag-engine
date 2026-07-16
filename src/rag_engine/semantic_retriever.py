@@ -1,6 +1,6 @@
 import math
 from rag_engine.evaluation import RetrievalResult
-from rag_engine.storage import ChunkRecord
+from rag_engine.storage import Chunk
 
 
 def cosine_similarity(vector_a: list[float], vector_b: list[float]) -> float:
@@ -26,7 +26,7 @@ def cosine_similarity(vector_a: list[float], vector_b: list[float]) -> float:
 
 def retrieve_semantic_chunks(
     query_embedding: list[float],
-    chunks: list[ChunkRecord],
+    chunks: list[Chunk],
     chunk_embeddings: list[list[float]],
     top_k: int = 3,
 ) -> list[RetrievalResult]:
