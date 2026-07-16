@@ -1,5 +1,5 @@
 [
-    { "question": "Does Nitesh know anything about Kafka?", "expected_terms": [ "chunk-3" ]},
-    { "question": "What developer tools has Nitesh built so far?", "expected_terms": [ "chunk-2", "chunk-8" ]},
-    { "question": "What education does Nitesh have?", "expected_terms": [ "chunk-6", "chunk-12" ]}
+    { "question": "Does Nitesh know anything about Kafka?", "expected_terms": [ "resume-profile:: chunk-3" ]},
+    { "question": "What developer tools has Nitesh built so far?", "expected_terms": [ "resume-profile:: chunk-2", "resume-profile:: chunk-8" ]},
+    { "question": "What education does Nitesh have?", "expected_terms": [ "resume-profile:: chunk-6", "resume-profile:: chunk-12" ]}
 ]

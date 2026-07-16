@@ -7,10 +7,18 @@ from rag_engine.storage import (
     load_embeddings,
 )
 
-
 def test_save_chunks_write_to_json_file(tmp_path) -> None:
     output_path = tmp_path / "chunks.json"
-    chunks = [{"chunk-0": "first chunk", "chunk-1": "second chunk"}]
+    chunks = [
+        {
+            "id": "doc-1:: chunk-0",
+            "document_id": "doc-1",
+            "text": "first chunk",
+            "source": "data/raw/example.txt",
+            "start_char": 0,
+            "end_char": 11,
+        }
+    ]
     save_chunks(chunks, str(output_path))
     saved_chunks = json.loads(output_path.read_text(encoding="utf-8"))
     assert saved_chunks == chunks
@@ -18,7 +26,16 @@ def test_save_chunks_write_to_json_file(tmp_path) -> None:
 
 def test_load_chunks_from_json_file(tmp_path) -> None:
     input_path = tmp_path / "chunks.json"
-    chunk_data = [{"chunk-0": "first chunk", "chunk-1": "second chunk"}]
+    chunk_data = [
+        {
+            "id": "doc-1:: chunk-0",
+            "document_id": "doc-1",
+            "text": "first chunk",
+            "source": "data/raw/example.txt",
+            "start_char": 0,
+            "end_char": 11,
+        }
+    ]
     input_path.write_text(json.dumps(chunk_data), encoding="utf-8")
     chunks = load_chunks(str(input_path))
     assert chunks == chunk_data

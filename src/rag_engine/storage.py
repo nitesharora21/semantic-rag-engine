@@ -1,11 +1,9 @@
 import json
 from pathlib import Path
-
-# dict[index, chunk_text]
-ChunkRecord = dict[str, str]
+from rag_engine.chunking import Chunk
 
 
-def save_chunks(chunks: list[ChunkRecord], output_path: str) -> None:
+def save_chunks(chunks: list[Chunk], output_path: str) -> None:
     """
     Take the chunks and store it to the JSON file in the output path.
 
@@ -15,7 +13,7 @@ def save_chunks(chunks: list[ChunkRecord], output_path: str) -> None:
     path.write_text(json.dumps(chunks, indent=2), encoding="utf-8")
 
 
-def load_chunks(input_path: str) -> list[ChunkRecord]:
+def load_chunks(input_path: str) -> list[Chunk]:
     """
     Load texts from JSON file.
     """

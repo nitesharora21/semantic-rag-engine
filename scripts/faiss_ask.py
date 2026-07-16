@@ -32,7 +32,9 @@ def main() -> None:
         chunk = chunks[chunk_index]
 
         print(f"--- Result {rank} | Score: {score:.4f} | Chunk Index: {chunk_index} ---")
-        print(chunk)
+        print(f"Source: {chunk['source']} ")
+        print(f"[{chunk['start_char'}: {chunk['end_char'}]")
+        print(chunk['text'])
 
 
 if __name__ == "__main__":

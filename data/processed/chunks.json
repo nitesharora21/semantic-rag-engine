@@ -1,82 +1,162 @@
 [
   {
-    "id": "chunk-0",
-    "text": "# Resume Profile Knowledge Base\n\n## Professional Summary\n\nNitesh Arora is a senior software engineer focused on developer platforms, CI/CD infrastructure, distributed systems, and internal engineering tools.\n\nHe has more than eight years of experience designing and operating large-scale engineering "
+    "id": "resume-profile:: chunk-0",
+    "document_id": "resume-profile",
+    "text": "# Resume Profile Knowledge Base\n\n## Professional Summary\n\nNitesh Arora is a senior software engineer focused on developer platforms, CI/CD infrastructure, distributed systems, and internal engineering tools.\n\nHe has more than eight years of experience designing and operating large-scale engineering ",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 0,
+    "end_char": 300
   },
   {
-    "id": "chunk-1",
-    "text": "platforms. His work has focused on build and release infrastructure, developer productivity, platform reliability, event-driven systems, and automation for complex software organizations.\n\nHe has worked on infrastructure supporting Cisco IOS-XE, Cisco's flagship network operating system. This platfo"
+    "id": "resume-profile:: chunk-1",
+    "document_id": "resume-profile",
+    "text": "platforms. His work has focused on build and release infrastructure, developer productivity, platform reliability, event-driven systems, and automation for complex software organizations.\n\nHe has worked on infrastructure supporting Cisco IOS-XE, Cisco's flagship network operating system. This platfo",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 300,
+    "end_char": 600
   },
   {
-    "id": "chunk-2",
-    "text": "rm supports thousands of engineers and handles a high volume of daily commits across a large and complex codebase.\n\n## Current Role\n\nNitesh works as a Senior Software Engineer at Cisco Systems.\n\nHis responsibilities include platform engineering for internal CI/CD systems that support build, test, an"
+    "id": "resume-profile:: chunk-2",
+    "document_id": "resume-profile",
+    "text": "rm supports thousands of engineers and handles a high volume of daily commits across a large and complex codebase.\n\n## Current Role\n\nNitesh works as a Senior Software Engineer at Cisco Systems.\n\nHis responsibilities include platform engineering for internal CI/CD systems that support build, test, an",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 600,
+    "end_char": 900
   },
   {
-    "id": "chunk-3",
-    "text": "d release workflows. The platform uses a Python and Django-based service stack, Kafka-based messaging, MySQL storage, and REST APIs across service boundaries.\n\n## Platform Architecture Experience\n\nNitesh has worked on large-scale build orchestration systems. He re-architected build orchestration by "
+    "id": "resume-profile:: chunk-3",
+    "document_id": "resume-profile",
+    "text": "d release workflows. The platform uses a Python and Django-based service stack, Kafka-based messaging, MySQL storage, and REST APIs across service boundaries.\n\n## Platform Architecture Experience\n\nNitesh has worked on large-scale build orchestration systems. He re-architected build orchestration by ",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 900,
+    "end_char": 1200
   },
   {
-    "id": "chunk-4",
-    "text": "separating job scheduling from compute resource management, allowing the system to scale services more independently.\n\nHe has experience with priority-aware queueing, host-aware allocation, and managing compute resources across a large bare-metal build fleet.\n\nHe has also built event-driven services"
+    "id": "resume-profile:: chunk-4",
+    "document_id": "resume-profile",
+    "text": "separating job scheduling from compute resource management, allowing the system to scale services more independently.\n\nHe has experience with priority-aware queueing, host-aware allocation, and managing compute resources across a large bare-metal build fleet.\n\nHe has also built event-driven services",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 1200,
+    "end_char": 1500
   },
   {
-    "id": "chunk-5",
-    "text": " using Apache Kafka. These services support build telemetry, policy snapshots, downstream analytics, and more reliable service-to-service communication.\n\n## Migration and Modernization Experience\n\nNitesh has led and contributed to multi-quarter platform migrations with minimal user disruption.\n\nExam"
+    "id": "resume-profile:: chunk-5",
+    "document_id": "resume-profile",
+    "text": " using Apache Kafka. These services support build telemetry, policy snapshots, downstream analytics, and more reliable service-to-service communication.\n\n## Migration and Modernization Experience\n\nNitesh has led and contributed to multi-quarter platform migrations with minimal user disruption.\n\nExam",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 1500,
+    "end_char": 1800
   },
   {
-    "id": "chunk-6",
-    "text": "ples include:\n\n* Migrating from a legacy proprietary source control system to Git\n* Supporting multi-site mirror infrastructure across multiple geographic regions\n* Migrating a platform from Python 2 to Python 3\n* Moving from batch-based resource scheduling to on-demand queued build scheduling\n\nThes"
+    "id": "resume-profile:: chunk-6",
+    "document_id": "resume-profile",
+    "text": "ples include:\n\n* Migrating from a legacy proprietary source control system to Git\n* Supporting multi-site mirror infrastructure across multiple geographic regions\n* Migrating a platform from Python 2 to Python 3\n* Moving from batch-based resource scheduling to on-demand queued build scheduling\n\nThes",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 1800,
+    "end_char": 2100
   },
   {
-    "id": "chunk-7",
-    "text": "e projects required careful planning, compatibility management, rollout strategy, and coordination across teams.\n\n## Developer Experience and Automation\n\nNitesh has built developer-facing tools used by thousands of engineers.\n\nHe built and owns a command-line interface that became the primary way en"
+    "id": "resume-profile:: chunk-7",
+    "document_id": "resume-profile",
+    "text": "e projects required careful planning, compatibility management, rollout strategy, and coordination across teams.\n\n## Developer Experience and Automation\n\nNitesh has built developer-facing tools used by thousands of engineers.\n\nHe built and owns a command-line interface that became the primary way en",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 2100,
+    "end_char": 2400
   },
   {
-    "id": "chunk-8",
-    "text": "gineers submit, query, cancel, and inspect builds. This replaced fragmented scripts with a unified developer workflow.\n\nHe also built an auto-retry framework for build orchestration. This improved the system from a single-shot launcher into a more self-healing platform with retry policies, inconsist"
+    "id": "resume-profile:: chunk-8",
+    "document_id": "resume-profile",
+    "text": "gineers submit, query, cancel, and inspect builds. This replaced fragmented scripts with a unified developer workflow.\n\nHe also built an auto-retry framework for build orchestration. This improved the system from a single-shot launcher into a more self-healing platform with retry policies, inconsist",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 2400,
+    "end_char": 2700
   },
   {
-    "id": "chunk-9",
-    "text": "ent-result detection, and targeted notifications.\n\nHe built a pre-commit compliance gate that validates ticket linkage and documentation quality before code merges into the main branch.\n\n## Reliability, Security, and Cost Optimization\n\nNitesh has worked on reliability, observability, security, and i"
+    "id": "resume-profile:: chunk-9",
+    "document_id": "resume-profile",
+    "text": "ent-result detection, and targeted notifications.\n\nHe built a pre-commit compliance gate that validates ticket linkage and documentation quality before code merges into the main branch.\n\n## Reliability, Security, and Cost Optimization\n\nNitesh has worked on reliability, observability, security, and i",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 2700,
+    "end_char": 3000
   },
   {
-    "id": "chunk-10",
-    "text": "nfrastructure cost reduction.\n\nHe led a compression migration from gzip to zstd for build logs and artifacts. The migration included zero-downtime rollout and fallback compatibility.\n\nHe built observability capabilities including service heartbeats, Ansible-driven playbooks, access-log analytics, AP"
+    "id": "resume-profile:: chunk-10",
+    "document_id": "resume-profile",
+    "text": "nfrastructure cost reduction.\n\nHe led a compression migration from gzip to zstd for build logs and artifacts. The migration included zero-downtime rollout and fallback compatibility.\n\nHe built observability capabilities including service heartbeats, Ansible-driven playbooks, access-log analytics, AP",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 3000,
+    "end_char": 3300
   },
   {
-    "id": "chunk-11",
-    "text": "I latency tracking, and load testing infrastructure.\n\nHe investigated and resolved production reliability issues, including a fleet-wide out-of-memory problem caused by subprocess pipe deadlocks.\n\nHe also delivered a code-signing pipeline for virtualized network operating system images and integrate"
+    "id": "resume-profile:: chunk-11",
+    "document_id": "resume-profile",
+    "text": "I latency tracking, and load testing infrastructure.\n\nHe investigated and resolved production reliability issues, including a fleet-wide out-of-memory problem caused by subprocess pipe deadlocks.\n\nHe also delivered a code-signing pipeline for virtualized network operating system images and integrate",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 3300,
+    "end_char": 3600
   },
   {
-    "id": "chunk-12",
-    "text": "d centralized secrets management using Conjur.\n\n## Previous Experience\n\nBefore Cisco, Nitesh worked as a Software Developer Intern at Ericsson.\n\nAt Ericsson, he built data parsing and analysis pipelines for license management test reporting. He reduced reporting turnaround time from several days of "
+    "id": "resume-profile:: chunk-12",
+    "document_id": "resume-profile",
+    "text": "d centralized secrets management using Conjur.\n\n## Previous Experience\n\nBefore Cisco, Nitesh worked as a Software Developer Intern at Ericsson.\n\nAt Ericsson, he built data parsing and analysis pipelines for license management test reporting. He reduced reporting turnaround time from several days of ",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 3600,
+    "end_char": 3900
   },
   {
-    "id": "chunk-13",
-    "text": "manual work to under ten seconds.\n\nHe also built asynchronous ETL pipelines for multi-system test results and worked with globally distributed engineering teams.\n\nHis responsibilities included server deployments, Apache configuration, Nagios monitoring, and Jenkins CI integration.\n\n## Technical Skil"
+    "id": "resume-profile:: chunk-13",
+    "document_id": "resume-profile",
+    "text": "manual work to under ten seconds.\n\nHe also built asynchronous ETL pipelines for multi-system test results and worked with globally distributed engineering teams.\n\nHis responsibilities included server deployments, Apache configuration, Nagios monitoring, and Jenkins CI integration.\n\n## Technical Skil",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 3900,
+    "end_char": 4200
   },
   {
-    "id": "chunk-14",
-    "text": "ls\n\nNitesh has experience with the following technologies:\n\n* Python\n* Django\n* Django REST Framework\n* Bash\n* SQL\n* Apache Kafka\n* Celery\n* REST APIs\n* Multi-threaded Python\n* Jenkins\n* JFrog Artifactory\n* Git\n* GitHub Actions\n* Ansible\n* MySQL\n* PostgreSQL\n* Elasticsearch\n* Linux\n* Apache mod_wsgi"
+    "id": "resume-profile:: chunk-14",
+    "document_id": "resume-profile",
+    "text": "ls\n\nNitesh has experience with the following technologies:\n\n* Python\n* Django\n* Django REST Framework\n* Bash\n* SQL\n* Apache Kafka\n* Celery\n* REST APIs\n* Multi-threaded Python\n* Jenkins\n* JFrog Artifactory\n* Git\n* GitHub Actions\n* Ansible\n* MySQL\n* PostgreSQL\n* Elasticsearch\n* Linux\n* Apache mod_wsgi",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 4200,
+    "end_char": 4500
   },
   {
-    "id": "chunk-15",
-    "text": "\n* Conjur\n* LDAP\n* Nagios\n* GoAccess\n* Locust\n\n## Education\n\nNitesh earned a Master of Science in Computer Science from Georgia Institute of Technology.\n\nHe earned a Bachelor of Engineering in Computer Engineering from Concordia University in Montr\u00e9al.\n\n## Patents and Recognition\n\nNitesh is a USPTO "
+    "id": "resume-profile:: chunk-15",
+    "document_id": "resume-profile",
+    "text": "\n* Conjur\n* LDAP\n* Nagios\n* GoAccess\n* Locust\n\n## Education\n\nNitesh earned a Master of Science in Computer Science from Georgia Institute of Technology.\n\nHe earned a Bachelor of Engineering in Computer Engineering from Concordia University in Montr\u00e9al.\n\n## Patents and Recognition\n\nNitesh is a USPTO ",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 4500,
+    "end_char": 4800
   },
   {
-    "id": "chunk-16",
-    "text": "patent holder for an ML-based defect detection system for large-scale network device fleets.\n\nHe was a semi-finalist in Cisco's Innovate Everywhere Challenge for an AI-driven compute scheduler that targeted significant efficiency gains.\n\nHe also won first place in the Ericsson North America IoT Show"
+    "id": "resume-profile:: chunk-16",
+    "document_id": "resume-profile",
+    "text": "patent holder for an ML-based defect detection system for large-scale network device fleets.\n\nHe was a semi-finalist in Cisco's Innovate Everywhere Challenge for an AI-driven compute scheduler that targeted significant efficiency gains.\n\nHe also won first place in the Ericsson North America IoT Show",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 4800,
+    "end_char": 5100
   },
   {
-    "id": "chunk-17",
-    "text": "case.\n\n## Engineering Strengths\n\nNitesh's strengths include:\n\n* Platform engineering\n* CI/CD infrastructure\n* Developer productivity\n* Distributed systems\n* Event-driven architecture\n* Build orchestration\n* System reliability\n* Automation\n* Technical leadership\n* Migration planning\n* Operational deb"
+    "id": "resume-profile:: chunk-17",
+    "document_id": "resume-profile",
+    "text": "case.\n\n## Engineering Strengths\n\nNitesh's strengths include:\n\n* Platform engineering\n* CI/CD infrastructure\n* Developer productivity\n* Distributed systems\n* Event-driven architecture\n* Build orchestration\n* System reliability\n* Automation\n* Technical leadership\n* Migration planning\n* Operational deb",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 5100,
+    "end_char": 5400
   },
   {
-    "id": "chunk-18",
-    "text": "ugging\n* Infrastructure modernization\n\n## Example Questions This Knowledge Base Should Answer\n\nThe RAG system should eventually be able to answer questions such as:\n\n* What kind of engineering work has Nitesh done?\n* What systems has Nitesh built at Cisco?\n* What experience does Nitesh have with CI/"
+    "id": "resume-profile:: chunk-18",
+    "document_id": "resume-profile",
+    "text": "ugging\n* Infrastructure modernization\n\n## Example Questions This Knowledge Base Should Answer\n\nThe RAG system should eventually be able to answer questions such as:\n\n* What kind of engineering work has Nitesh done?\n* What systems has Nitesh built at Cisco?\n* What experience does Nitesh have with CI/",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 5400,
+    "end_char": 5700
   },
   {
-    "id": "chunk-19",
-    "text": "CD infrastructure?\n* How has Nitesh improved developer productivity?\n* What distributed systems experience does Nitesh have?\n* What reliability work has Nitesh done?\n* What technologies has Nitesh used?\n* What is Nitesh's education background?\n* What patents or awards does Nitesh have?\n\n"
+    "id": "resume-profile:: chunk-19",
+    "document_id": "resume-profile",
+    "text": "CD infrastructure?\n* How has Nitesh improved developer productivity?\n* What distributed systems experience does Nitesh have?\n* What reliability work has Nitesh done?\n* What technologies has Nitesh used?\n* What is Nitesh's education background?\n* What patents or awards does Nitesh have?\n\n",
+    "source": "data/raw/resume_profile.txt",
+    "start_char": 5700,
+    "end_char": 5988
   }
 ]
