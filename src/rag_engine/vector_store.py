@@ -23,11 +23,7 @@ class FaissVectorStore:
         faiss.normalize_L2(self.embeddings)
         self.index.add(self.embeddings)
 
-    def search(
-        self,
-        query_embedding: list[float],
-        top_k: int = 3,
-    ) -> list[tuple[float, int]]:
+    def search(self, query_embedding: list[float], top_k: int = 3) -> list[tuple[float, int]]:
         """
         Search FAISS index using a query embedding.
 
