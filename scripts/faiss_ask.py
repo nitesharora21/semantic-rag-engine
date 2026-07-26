@@ -31,9 +31,9 @@ def main() -> None:
         chunk = chunks[chunk_index]
 
         print(f"--- Result {rank} | Score: {score:.4f} | Chunk Index: {chunk_index} ---")
-        print(f"Source: {chunk['source']} ")
-        print(f"[{chunk['start_char']}: {chunk['end_char']}]")
-        print(chunk['text'])
+        print(f"Source: {chunk.model_dump()['source']} ")
+        print(f"[{chunk.model_dump()['start_char']}: {chunk.model_dump()['end_char']}]")
+        print(chunk.model_dump()['text'])
 
 
 if __name__ == "__main__":

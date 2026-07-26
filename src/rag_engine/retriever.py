@@ -43,7 +43,7 @@ def retrieve_chunks(query: str, chunks: list[Chunk], top_k: int = 3) -> list[Ret
     """
     scored_chunks = []
     for chunk in chunks:
-        chunk_text = chunk["text"]
+        chunk_text = chunk.model_dump()["text"]
         score = score_chunk(query, chunk_text)
         if score > 0:
             # Putting score first cause the sorted will use the score to sort instead of chunk

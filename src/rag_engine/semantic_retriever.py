@@ -38,7 +38,7 @@ def retrieve_semantic_chunks(
             (similarity_score, chunk)
     """
     scored_chunks = []
-    chunk_texts = [chunk["text"] for chunk in chunks]
+    chunk_texts = [chunk.model_dump()["text"] for chunk in chunks]
     for chunk, chunk_embedding in zip(chunk_texts, chunk_embeddings):
         score = cosine_similarity(query_embedding, chunk_embedding)
         scored_chunks.append((score, chunk))

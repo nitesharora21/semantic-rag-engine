@@ -10,8 +10,8 @@ from rag_engine.evaluation import (
 
 chunks = load_chunks("data/processed/chunks.json")
 eval_questions = load_eval_questions("eval/retrieval_questions.json")
-chunk_texts = [chunk["text"] for chunk in chunks]
-chunk_id_by_text = {chunk["text"]: chunk["id"] for chunk in chunks}
+chunk_texts = [chunk.model_dump()['text'] for chunk in chunks]
+chunk_id_by_text = {chunk.model_dump()["text"]: chunk.model_dump()["id"] for chunk in chunks}
 
 
 def keyword_retrieve(question: str) -> list[RetrievalResult]:

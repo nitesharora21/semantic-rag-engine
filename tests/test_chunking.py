@@ -1,16 +1,18 @@
-from rag_engine.chunking import chunk_text
+from rag_engine.chunking import chunk_document
+from rag_engine.models import Chunk, Document
 
 
-def test_chunk_text_returns_one_chunk_for_short_text() -> None:
+def test_chunk_document_returns_one_chunk_for_short_text() -> None:
     text = "This is one short text testing for the chunk size"
-    chunks = chunk_text(
-        text=text,
-        document_id="doc-1",
-        source="data/raw/example.txt",
+    chunks = chunk_document(
+        Document(
+            id="doc-1",
+            text=text,
+            source="data/raw/example.txt",
+        ),
         chunk_size=100,
     )
-    assert chunks == [
-        {
+    assert chunks[0].model_dump()  == {
             "id": "doc-1:: chunk-0",
             "document_id": "doc-1",
             "text": "This is one short text testing for the chunk size",
@@ -18,15 +20,16 @@ def test_chunk_text_returns_one_chunk_for_short_text() -> None:
             "start_char": 0,
             "end_char": 49
         }
-    ]
 
 def test_chunk_offsets_reconstruct_original_text() -> None:
     text = "abcdefghij"
-    chunks = chunk_text(
-        text=text,
-        document_id="doc-1",
-        source="data/raw/example.txt",
+    chunks = chunk_document(
+        Document(
+            id="doc-1",
+            text=text,
+            source="data/raw/example.txt",
+        ),
         chunk_size=3,
     )
     for chunk in chunks:
-        assert chunk['text'] == text[chunk['start_char']: chunk['end_char']]
+        assert chunk.model_dump()['text'] == text[chunk.model_dump()['start_char']: chunk.model_dump()['end_char']]

@@ -1,11 +1,12 @@
 from rag_engine.retriever import retrieve_chunks
+from rag_engine.models import Chunk, Document
 
 
 def test_retreive_chunks_find_matching_chunks() -> None:
     chunks = [
-        {"id": "chunk-0", "text": "Nitesh has experience working with Kafka"},
-        {"id": "chunk-1", "text": "He worked in build automation"},
-        {"id": "chunk-2", "text": "He studied masters in computer science from Georgia Tech"},
+        Chunk.model_validate({"id": "chunk-0", "text": "Nitesh has experience working with Kafka"}),
+        Chunk.model_validate({"id": "chunk-1", "text": "He worked in build automation"}),
+        Chunk.model_validate({"id": "chunk-2", "text": "He studied masters in computer science from Georgia Tech"}),
     ]
     results = retrieve_chunks("Kafka", chunks, top_k=1)
     assert results[0][1] == "Nitesh has experience working with Kafka"

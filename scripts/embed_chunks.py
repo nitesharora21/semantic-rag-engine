@@ -5,7 +5,7 @@ from rag_engine.storage import load_chunks, save_embeddings
 def main() -> None:
     chunks = load_chunks("data/processed/chunks.json")
     print(f"Loaded Chunks: {chunks}")
-    chunk_texts = [chunk["text"] for chunk in chunks]
+    chunk_texts = [chunk.model_dump()['text'] for chunk in chunks]
     embeddingModel = EmbeddingModel()
     embeddings = embeddingModel.embed_texts(chunk_texts)
     save_embeddings(embeddings, "data/processed/embeddings.json")

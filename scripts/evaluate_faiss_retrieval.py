@@ -24,7 +24,7 @@ def faiss_retrieve(question: str) -> list[RetrievalResult]:
     # But we at the mercy that the chunk_index = "chunk-<chunk_index>"
     # This is not always true - for now this works, later we can refine
     # it even more.
-    return [(score, chunks[chunk_index]["id"]) for score, chunk_index in retrieved_chunks]
+    return [(score, chunks[chunk_index].model_dump()["id"]) for score, chunk_index in retrieved_chunks]
 
 
 def main() -> None:

@@ -6,37 +6,40 @@ from rag_engine.storage import (
     save_embeddings,
     load_embeddings,
 )
+from rag_engine.models import Chunk, Document
 
 def test_save_chunks_write_to_json_file(tmp_path) -> None:
     output_path = tmp_path / "chunks.json"
     chunks = [
-        {
-            "id": "doc-1:: chunk-0",
-            "document_id": "doc-1",
-            "text": "first chunk",
-            "source": "data/raw/example.txt",
-            "start_char": 0,
-            "end_char": 11,
-        }
+        Chunk( 
+            id="doc-1:: chunk-0",
+            document_id="doc-1",
+            text="first chunk",
+            source="data/raw/example.txt",
+            start_char=0,
+            end_char=11,
+        )
     ]
     save_chunks(chunks, str(output_path))
     saved_chunks = json.loads(output_path.read_text(encoding="utf-8"))
-    assert saved_chunks == chunks
+    print(chunks)
+    print(saved_chunks)
+    assert saved_chunks == [chunks[0].model_dump()]
 
 
 def test_load_chunks_from_json_file(tmp_path) -> None:
     input_path = tmp_path / "chunks.json"
-    chunk_data = [
-        {
-            "id": "doc-1:: chunk-0",
-            "document_id": "doc-1",
-            "text": "first chunk",
-            "source": "data/raw/example.txt",
-            "start_char": 0,
-            "end_char": 11,
-        }
+    chunks = [
+        Chunk( 
+            id="doc-1:: chunk-0",
+            document_id="doc-1",
+            text="first chunk",
+            source="data/raw/example.txt",
+            start_char=0,
+            end_char=11,
+        )
     ]
-    input_path.write_text(json.dumps(chunk_data), encoding="utf-8")
+    input_path.write_text(json.dumps(chunks), encoding="utf-8")
     chunks = load_chunks(str(input_path))
     assert chunks == chunk_data
 
