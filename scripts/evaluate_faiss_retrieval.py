@@ -13,7 +13,7 @@ embeddings = load_embeddings("data/processed/embeddings.json")
 eval_questions = load_eval_questions("eval/retrieval_questions.json")
 
 model = EmbeddingModel()
-store = FaissVectorStore(embeddings=embeddings)
+store = FaissVectorStore.load("data/processed/faiss.index")
 
 
 def faiss_retrieve(question: str) -> list[RetrievalResult]:
@@ -29,9 +29,7 @@ def faiss_retrieve(question: str) -> list[RetrievalResult]:
 
 def main() -> None:
 
-    recall_scores = evaluate_recall_at_k(
-        eval_questions=eval_questions, retrieve_fn=faiss_retrieve, k=3
-    )
+    recall_scores = evaluate_recall_at_k(eval_questions=eval_questions, retrieve_fn=faiss_retrieve, k=3)
     for item, recall in zip(eval_questions, recall_scores):
         print(f"\nQuestion: {item['question']}")
         print(f"Expected Chunk IDs: {item['expected_terms']}")

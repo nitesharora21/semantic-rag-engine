@@ -1,7 +1,7 @@
 import sys
 
 from rag_engine.embeddings import EmbeddingModel
-from rag_engine.storage import load_chunks, load_embeddings
+from rag_engine.storage import load_chunks
 from rag_engine.vector_store import FaissVectorStore
 
 
@@ -16,13 +16,12 @@ def main() -> None:
     query = " ".join(sys.argv[1:])
 
     chunks = load_chunks("data/processed/chunks.json")
-    embeddings = load_embeddings("data/processed/embeddings.json")
+    loaded_store = FaissVectorStore.load("data/processed/faiss.index")
 
     model = EmbeddingModel()
     query_embedding = model.embed_text(query)
 
-    store = FaissVectorStore(embeddings=embeddings)
-    results = store.search(query_embedding=query_embedding, top_k=3)
+    results = loaded_store.search(query_embedding=query_embedding, top_k=3)
 
     print(f"User Query: {query}")
     print(f"Showing top {len(results)} FAISS semantic matches")

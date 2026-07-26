@@ -1,5 +1,6 @@
 import faiss
 import numpy as np
+from pathlib import Path
 
 
 class FaissVectorStore:
@@ -11,15 +12,11 @@ class FaissVectorStore:
     """
 
     def __init__(self, embeddings: list[list[float]]) -> None:
-        if not embeddings:
-            raise ValueError("embeddings must not be empty")
-
+        if not embeddings: raise ValueError("embeddings must not be empty")
         self.embeddings = np.array(embeddings, dtype="float32")
         # shape = # of chunks X length of each embedding
         self.dimension = self.embeddings.shape[1]
-
         self.index = faiss.IndexFlatIP(self.dimension)
-
         faiss.normalize_L2(self.embeddings)
         self.index.add(self.embeddings)
 
@@ -35,14 +32,23 @@ class FaissVectorStore:
         # Convert the vector embedding to np.array()
         query_vector = np.array(query_embedding, dtype="float32").reshape(1, -1)
         faiss.normalize_L2(query_vector)
-
         scores, indices = self.index.search(x=query_vector, k=top_k)
-
         results = []
-
         for score, index in zip(scores[0], indices[0]):
             if index == -1:
                 continue
             results.append((float(score), int(index)))
-
         return results
+
+    def save(self, output_path: str) -> None:
+        path = Path(output_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        faiss.write_index(self.index, str(path))
+
+    @classmethod
+    def load(cls, input_path: str) -> "FaissVectorStore":
+        path = Path(input_path)
+        store = cls.__new__(cls)
+        store.index = faiss.read_index(str(path))
+        store.dimension = store.index.d
+        return store
