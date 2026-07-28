@@ -17,7 +17,7 @@ def save_chunks(chunks: list[Chunk], output_path: str) -> None:
 
 def load_chunks(input_path: str) -> list[Chunk]:
     """
-    Load texts from JSON file.
+    Load texts from JSON file and converts them into Chunk BaseModel
     """
     path = Path(input_path)
     content = path.read_text(encoding="utf-8")

@@ -1,4 +1,3 @@
-from typing import TypedDict
 from rag_engine.models import Document, Chunk
 
 def chunk_document(document: Document, chunk_size: int = 500) -> list[Chunk]:

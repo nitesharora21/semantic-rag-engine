@@ -1,5 +1,5 @@
 from rag_engine.chunking import chunk_document
-from rag_engine.models import Chunk, Document
+from rag_engine.models import Document
 
 
 def test_chunk_document_returns_one_chunk_for_short_text() -> None:

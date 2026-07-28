@@ -24,7 +24,8 @@ def main() -> None:
     # Generic function - no need to add anything here below
     retriever_results_dict = {}
     for retriever_method_name, retriever_method in retriever_methods_dict.items():
-        retriever_results_dict[retriever_method_name] = [evaluate_retriever(eval_questions=eval_questions, retrieve_fn=retriever_method)]
+        retriever_results_dict[retriever_method_name] = []
+        retriever_results_dict[retriever_method_name].append(evaluate_retriever(eval_questions=eval_questions, retrieve_fn=retriever_method))
         retriever_results_dict[retriever_method_name].append(evaluate_recall_at_k(eval_questions=eval_questions, retrieve_fn=retriever_method))
         retriever_results_dict[retriever_method_name].append(evaluate_reciprocal_rank(eval_questions=eval_questions, retrieve_fn=retriever_method))
 
