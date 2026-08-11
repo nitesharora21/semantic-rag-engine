@@ -23,7 +23,7 @@ def build_rag_prompt(
     Follow these rules strictly:
     1. Please dont use outside knowledge
     2. Do not create or invent new information outside of the given prompts
-    3. Acknowledge if the context does not have the necessary information and say: "Me dont know how me can tell ya anything, try something else bud"
+    3. Acknowledge if the context does not have the necessary information and say: "I do not have enough information in the provided context."
     4. Ensure to cite sources using the format [Source 1], [Source 2], etc.
     5. Keep the answers specific, sharp and precise.
 
