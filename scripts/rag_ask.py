@@ -15,14 +15,28 @@ def main() -> None:
             index_path="data/processed/faiss.index",
             embedding_model=EmbeddingModel(),
             generator=OllamaGenerator(model_name="gemma3"),
-            top_k=3)
-    answer = rag.answer(question)
+            top_k=3,
+            minimum_score=0.5)
+    response = rag.answer(question)
 
     print("\nQuestion:")
     print(question)
 
     print("\nAnswer:")
-    print(answer)
+    print(response.answer)
+
+    print(f"\nAbstained: {response.abstained}")
+    print("\nSources:")
+    for rank, result in enumerate(response.sources, start=1):
+        if result.score < rag.minimum_score:
+            continue
+        chunk = result.chunk
+        print(f"\n{rank}. "
+              f"{chunk.id}"
+              f"(score={result.score:4f})")
+        print(f"\t{chunk.source}"
+              f"[{chunk.start_char}:{chunk.end_char}]")
+
 
 if __name__ == "__main__":
     main()
