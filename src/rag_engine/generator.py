@@ -9,20 +9,20 @@ class OllamaGenerator:
         self.model_name = model_name
         self.base_url = base_url
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str, json_format: bool = False) -> str:
         """
         Generates the response from the given prompt
         """
-        response = requests.post(
-                    f"{self.base_url}/api/generate",
-                    json={
-                        "model": self.model_name,
-                        "prompt": prompt,
-                        "stream": False,
-                        },
-                    timeout=120,
-                )
+        payload = {
+                "model": self.model_name,
+                "prompt": prompt,
+                "stream": False
+                }
+        if json_format:
+            payload["format"] = "json"
+        response = requests.post(f"{self.base_url}/api/generate",
+                                 json=payload,
+                                 timeout=120)
         response.raise_for_status()
-
         data = response.json()
         return str(data['response'].strip())

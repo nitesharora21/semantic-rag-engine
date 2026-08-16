@@ -32,7 +32,7 @@ requires = ["setuptools>=69.0.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "src/rag_engine/evaluation"]
 
 [tool.ruff]
 line-length = 400
@@ -40,5 +40,5 @@ target-version = "py311"
 lint.ignore=["E701"]
 
 [tool.pytest.ini_options]
-pythonpath = [".", "src"]
+pythonpath = [".", "src", "src/rag_engine/evaluation"]
 testpaths = ["tests"]

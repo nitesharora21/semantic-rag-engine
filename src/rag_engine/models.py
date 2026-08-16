@@ -23,3 +23,7 @@ class RAGResponse(BaseModel):
     answer: str
     abstained: bool
     sources: list[RetrievedChunk]
+
+class FaithfulnessResult(BaseModel):
+    score: float
+    reasoning: str
