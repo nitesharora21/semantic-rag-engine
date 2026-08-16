@@ -1,3 +1,4 @@
+from rag_engine.context import select_context
 from rag_engine.embeddings import EmbeddingModel
 from rag_engine.generator import OllamaGenerator
 from rag_engine.models import RetrievedChunk, RAGResponse
@@ -11,14 +12,17 @@ class RAGEngine:
                  index_path: str, 
                  embedding_model: EmbeddingModel, 
                  generator: OllamaGenerator, 
-                 top_k: int = 3,
-                 minimum_score: float = 0.5) -> None:
+                 top_k: int = 5,
+                 minimum_score: float = 0.5,
+                 max_context_chars: int = 4000) -> None:
         self.chunks = load_chunks(chunks_path)
         self.vector_store = FaissVectorStore.load(index_path)
         self.embedding_model = embedding_model
         self.generator = generator
+        # Retrieval budget != Generation Context Budget (top_k does not impact context chars)
         self.top_k = top_k
         self.minimum_score = minimum_score
+        self.max_context_chars = max_context_chars
 
     def retrieve(self, question: str) -> list[RetrievedChunk]:
         query_embedding = self.embedding_model.embed_text(question)
@@ -38,14 +42,15 @@ class RAGEngine:
                     answer=("I do not have enough information in the provided context."),
                     abstained=True,
                     sources=results)
-        chunks = [result.chunk for result in results]
+        context_results = select_context(results=results, max_chars=self.max_context_chars)
+        chunks = [result.chunk for result in context_results]
         prompt = build_rag_prompt(question=question, chunks=chunks)
         answer = self.generator.generate(prompt)
         return RAGResponse(
                 question=question,
                 answer=answer,
                 abstained=False,
-                sources=results)
+                sources=context_results)
     
 
 
