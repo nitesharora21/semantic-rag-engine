@@ -1,6 +1,6 @@
 from rag_engine.retriever import retrieve_chunks
 from rag_engine.storage import load_chunks
-from rag_engine.evaluation import (
+from rag_engine.retrieval_evaluation import (
     load_eval_questions,
     RetrievalResult,
     evaluate_recall_at_k,

@@ -1,7 +1,7 @@
 from rag_engine.embeddings import EmbeddingModel
 from rag_engine.storage import load_chunks, load_embeddings
 from rag_engine.vector_store import FaissVectorStore
-from rag_engine.evaluation import (
+from rag_engine.retrieval_evaluation import (
     load_eval_questions,
     RetrievalResult,
     evaluate_recall_at_k,

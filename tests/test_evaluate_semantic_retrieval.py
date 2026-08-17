@@ -1,4 +1,4 @@
-from rag_engine.evaluation import contains_expected_terms
+from rag_engine.retrieval_evaluation import contains_expected_terms
 from rag_engine.semantic_retriever import retrieve_semantic_chunks
 from rag_engine.models import Chunk
 

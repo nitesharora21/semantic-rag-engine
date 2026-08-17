@@ -1,6 +1,6 @@
 import json
 
-from rag_engine.evaluation import (
+from rag_engine.retrieval_evaluation import (
     calculate_accuracy,
     contains_expected_terms,
     load_eval_questions,

@@ -1,6 +1,6 @@
 import re
 from rag_engine.storage import Chunk
-from rag_engine.evaluation import RetrievalResult
+from rag_engine.retrieval_evaluation import RetrievalResult
 
 
 def tokenize(text: str) -> list[str]:

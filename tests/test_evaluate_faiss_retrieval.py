@@ -1,4 +1,4 @@
-from rag_engine.evaluation import contains_expected_terms
+from rag_engine.retrieval_evaluation import contains_expected_terms
 from rag_engine.vector_store import FaissVectorStore
 
 

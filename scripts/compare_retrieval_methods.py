@@ -1,4 +1,4 @@
-from rag_engine.evaluation import (
+from rag_engine.retrieval_evaluation import (
     evaluate_retriever,
     load_eval_questions,
     format_retrieval_metrics,
